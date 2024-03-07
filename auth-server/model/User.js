@@ -16,13 +16,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
-    select: false,
+    select:false,
   },
   passwordConfirm: {
     type: String,
     required: true,
     minlength: 8,
-    select: false,
+    select:false,
     validate: {
       validator: function (el) {
         return el === this.password;
@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false,
-    select: false,
+  
   },
   otp: {
     type: Number,

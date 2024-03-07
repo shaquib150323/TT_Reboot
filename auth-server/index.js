@@ -3,14 +3,15 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const imageRoute = require("./routes/image");
 const userRoute = require("./routes/user");
+
 const cors = require("cors");
-
-
-
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 8000;
+
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 
 app.get("/", (req, res) => {

@@ -7,7 +7,6 @@ const nodemailer = require("nodemailer");
 const registerController = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email: req.body.email });
-    console.log(existingUser);
     if (existingUser) {
       return res.status(200).send({
         message: "User already exist",
@@ -90,4 +89,77 @@ const registerController = async (req, res) => {
   }
 };
 
-module.exports = { registerController };
+
+const authController= async (req, res) => {
+  try {
+  const user = await User.findOne({ _id: req.body.userId });
+  console.log("now inside authcontoller");
+  console.log(req.body.userId);
+  console.log(user);
+  if (!user) {
+  return res.status(200).send({
+  message: "User not found",
+  success: false,
+  });
+  } else {
+  return res.status(200).send({
+  message: "Register successfully",
+  data: {
+  user,
+  },
+  success: true,
+  });
+  }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: `Auth error`,
+    });
+  }
+};
+
+
+
+
+
+const loginController = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email }).select(
+      "+password"
+    );
+
+    if (!user) {
+      return res.status(200).send({
+        message: "User not found",
+        success: false,
+      });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    const signuser = await User.findOne({ email: req.body.email });
+    if (!isMatch) {
+      return res.status(200).send({
+        success: false,
+        message: `Invalid password and email`,
+      });
+    }
+    const token = jwt.sign({ id: signuser._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    return res.status(201).send({
+      message: "Login successful!",
+      data: {
+        user: signuser,
+        token,
+      },
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: `Auth error`,
+    });
+  }
+};
+
+module.exports = { registerController, authController , loginController};

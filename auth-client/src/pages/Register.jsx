@@ -53,6 +53,7 @@ const Register = () => {
       .then(res => res.json())
       .then(data => {
         if (data.success) {
+          console.log(data.data);
           localStorage.setItem("token", data.data.token),
             toast.success(data.message)
           from.reset()
@@ -62,7 +63,7 @@ const Register = () => {
 
         }
       })
-  }
+  };
 
 
   return (
@@ -151,5 +152,3 @@ px-4 rounded"
 }
 export default Register
 
-//1.21.12   resume on 5 march 2024
-// sari bhasad 1.19.00 => 1.21.12 ke beech hai

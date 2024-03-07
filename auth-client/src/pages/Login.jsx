@@ -1,12 +1,50 @@
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Link, NavLink,useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 const Login = () => {
+
+const navigate = useNavigate()
+
+const handleOnSubmit = (e) => {
+  e.preventDefault()
+  const from = e.target
+  const email = from.email.value
+  const password = from.password.value
+
+  const userData = {
+     email, password
+  };
+   fetch('http://localhost:8000/api/v1/user/login', {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(userData)
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log(data.data.token);
+        localStorage.setItem("token", data.data.token),
+          toast.success(data.message)
+        from.reset()
+        navigate('/')
+      } else {
+        toast.error(data.message)
+
+      }
+    })
+};
+
   return (
     <div className="login">
       <div className="h-screen pt-[16vh]">
         <form
           className=" ease-in duration-300 w-[80% ] sm:w-max shadow-sm backdrop-blur-md bg-white/80
-        1g:w-max mx-auto flex flex-col items-center rounded-md px-8 py-5"
+        1g:w-max mx-auto flex flex-col items-center rounded-md px-8 py-5" onSubmit={handleOnSubmit}
         >
           <NavLink to="/">
             <img
@@ -21,7 +59,7 @@ const Login = () => {
             </label>
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Enter your email"  
               name="email"
               className=" shadow-sm
           bg-white appearance-none border rounded w-full py-2 px-3 sm:w-[20rem] text-gray-700
@@ -60,6 +98,7 @@ px-4 rounded"
           >
             Create an Account
           </Link>
+          <ToastContainer />
         </form>
       </div>
     </div>

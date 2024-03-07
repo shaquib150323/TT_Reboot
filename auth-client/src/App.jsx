@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Footer from './Shared/Footer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ProtectedRoute from './pages/ProtectedRoute'
 
 
 
@@ -19,7 +20,7 @@ function App() {
     
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
         <Route path='login' element={<Login/>}/>
         <Route path='register' element={<Register/>}/>
       </Routes>
