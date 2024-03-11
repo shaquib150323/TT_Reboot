@@ -130,7 +130,7 @@ text-gray-700 leading-tight focus:outline-none focus: shadow-outline' />
           </div>
           <button
             className="bg-[#f54748] active:scale-90 transition duration-150 transform
-      hover:shadow-x1 shadow-md w-full rounded-full px-8 py-2 text-x1 font-medium text-white
+      hover:shadow-xl shadow-md w-full rounded-full px-8 py-2 text-x1 font-medium text-white
       mx-auto text-center mb-3 mt-5"
             type="submit"
           >

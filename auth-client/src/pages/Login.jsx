@@ -36,7 +36,7 @@ const handleOnSubmit = (e) => {
         toast.error(data.message)
 
       }
-    })
+    });
 };
 
   return (

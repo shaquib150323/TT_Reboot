@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import Footer from './Shared/Footer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './pages/ProtectedRoute'
+import VerifyOtp from './pages/VerifyOtp'
 
 
 
@@ -21,8 +22,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
-        <Route path='login' element={<Login/>}/>
-        <Route path='register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/verifyOtp' element={<VerifyOtp/>}/>
       </Routes>
       <Footer />
     </>

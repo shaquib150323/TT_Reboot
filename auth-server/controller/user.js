@@ -89,27 +89,26 @@ const registerController = async (req, res) => {
   }
 };
 
-
-const authController= async (req, res) => {
+const authController = async (req, res) => {
   try {
-  const user = await User.findOne({ _id: req.body.userId });
-  console.log("now inside authcontoller");
-  console.log(req.body.userId);
-  console.log(user);
-  if (!user) {
-  return res.status(200).send({
-  message: "User not found",
-  success: false,
-  });
-  } else {
-  return res.status(200).send({
-  message: "Register successfully",
-  data: {
-  user,
-  },
-  success: true,
-  });
-  }
+    const user = await User.findOne({ _id: req.body.userId });
+    console.log("now inside authcontoller");
+    console.log(req.body.userId);
+    console.log(user);
+    if (!user) {
+      return res.status(200).send({
+        message: "User not found",
+        success: false,
+      });
+    } else {
+      return res.status(200).send({
+        message: "Register successfully",
+        data: {
+          user,
+        },
+        success: true,
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -118,10 +117,6 @@ const authController= async (req, res) => {
     });
   }
 };
-
-
-
-
 
 const loginController = async (req, res) => {
   try {
@@ -162,4 +157,34 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { registerController, authController , loginController};
+const verifyOtpController = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user.otp === req.body.combineOtp) {
+      user.isVerified = true;
+      await user.save();
+      res.status(200).send({
+        success: true,
+        message: `otp verified`,
+      });
+    } else {
+      res.status(200).send({
+        success: false,
+        message: `otp not verified`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: `failed to verify `,
+    });
+  }
+};
+
+module.exports = { 
+  registerController,
+   authController,
+    loginController,
+  verifyOtpController,
+ };
