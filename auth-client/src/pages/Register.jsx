@@ -42,7 +42,7 @@ const Register = () => {
     const userData = {
       name, email, password, passwordConfirm,
       profileImage
-    }
+    };
      fetch('http://localhost:8000/api/v1/user/register', {
       method: "POST",
       headers: {

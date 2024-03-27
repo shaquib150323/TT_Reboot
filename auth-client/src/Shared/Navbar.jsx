@@ -32,13 +32,19 @@ const Navbar = () => {
 
     <div className="py-3 px-10 sm:px-4 md:px-6 lg:px-6 container mx-auto">
      <div className=" flex items-center justify-between">
+      <Link to="/">
       <img src={logo} alt="" className='h-14 cursor-pointer' />
+
+      </Link>
 
       <div className="lg:flex hidden gap-8 items-center">
        <a href="" className='text-[#191919] text-xl font-medium hover:text-red-500'>Today's Special</a>
        <a href="" className='text-[#191919] text-xl font-medium hover:text-red-500'>Why TasteTracker</a>
-       <a href="" className='text-[#191919] text-xl font-medium hover:text-red-500'>Our Menu</a>
-       <a href="" className='text-[#191919] text-xl font-medium hover:text-red-500'>Add food</a>
+       <Link to="/menu" className='text-[#191919] text-xl font-medium hover:text-red-500'>Our Menu</Link>
+       {
+        user?.user?.role === 'admin' && <Link to="/addfood" className='text-[#191919] text-xl font-medium hover:text-red-500'>Add food</Link>
+       }
+
        <a href="" className='text-[#191919] text-xl font-medium hover:text-red-500'>Popular food</a>
        {
         user ? (
